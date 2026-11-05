@@ -1,0 +1,2 @@
+<?php
+// Consulta de registros

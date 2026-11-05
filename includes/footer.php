@@ -1,0 +1,1 @@
+<!-- Pie de página común -->

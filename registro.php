@@ -1,0 +1,2 @@
+<?php
+// Formulario de registro

@@ -1,0 +1,18 @@
+# Archivos de entorno
+.env
+.env.local
+config/*.local.php
+
+# Registros
+*.log
+logs/
+
+# Dependencias
+vendor/
+node_modules/
+
+# Editor y sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
