@@ -1,1 +1,19 @@
--- Script de creación de la base de datos
+-- Creación de la base de datos
+CREATE DATABASE IF NOT EXISTS db_sistema_web
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE db_sistema_web;
+
+-- Tabla principal de solicitudes
+CREATE TABLE IF NOT EXISTS solicitudes (
+    id_solicitud INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    nombre_solicitante VARCHAR(100) NOT NULL,
+    correo VARCHAR(120) NOT NULL,
+    area VARCHAR(80) NOT NULL,
+    descripcion TEXT NOT NULL,
+    prioridad ENUM('Alta', 'Media', 'Baja') NOT NULL DEFAULT 'Media',
+    estado ENUM('Pendiente', 'En proceso', 'Resuelta') NOT NULL DEFAULT 'Pendiente',
+    fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id_solicitud)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
