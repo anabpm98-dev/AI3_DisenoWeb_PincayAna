@@ -1,5 +1,13 @@
 <?php
-// Página de inicio
+require_once __DIR__ . '/config/conexion.php';
+
+// Comprobar la conexión
+try {
+    $pdo = obtenerConexion();
+    $mensaje = 'Conexión a la base de datos establecida correctamente.';
+} catch (RuntimeException $e) {
+    $mensaje = $e->getMessage();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -10,6 +18,6 @@
 </head>
 <body>
     <h1>Sistema de solicitudes de soporte técnico</h1>
-    <p>Proyecto en construcción. Servidor PHP activo: <?php echo date('d/m/Y H:i'); ?></p>
+    <p><?php echo htmlspecialchars($mensaje, ENT_QUOTES, 'UTF-8'); ?></p>
 </body>
 </html>
