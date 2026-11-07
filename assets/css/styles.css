@@ -1,1 +1,256 @@
-/* Estilos generales */
+/* Variables */
+:root {
+    --color-primary: #15803d;
+    --color-primary-dark: #166534;
+    --color-dark: #14532d;
+    --color-darker: #0f3d22;
+    --color-light: #f0fdf4;
+    --color-border: #bbd5c3;
+    --font-main: Arial, Helvetica, sans-serif;
+    --ancho-menu: 260px;
+}
+
+/* Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-light);
+    color: var(--color-dark);
+}
+
+/* Estructura general */
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Menú lateral */
+.sidebar {
+    position: sticky;
+    top: 0;
+    flex-shrink: 0;
+    width: var(--ancho-menu);
+    height: 100vh;
+    overflow-y: auto;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    transition: margin-left 0.3s;
+}
+
+.menu-cerrado .sidebar {
+    margin-left: calc(var(--ancho-menu) * -1);
+}
+
+.sidebar__brand {
+    padding: 24px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar__title {
+    font-size: 1.1rem;
+}
+
+.sidebar__subtitle {
+    margin-top: 4px;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.menu {
+    padding: 10px 0;
+    list-style: none;
+}
+
+.menu__link,
+.menu__group-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 14px 20px;
+    border: none;
+    background: none;
+    color: var(--color-light);
+    font-family: var(--font-main);
+    font-size: 1rem;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.menu__link:hover,
+.menu__group-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu__link--activo {
+    background-color: var(--color-primary);
+}
+
+.menu__link--activo:hover {
+    background-color: var(--color-primary-dark);
+}
+
+.menu__arrow {
+    transition: transform 0.3s;
+}
+
+.menu__item--open .menu__arrow {
+    transform: rotate(180deg);
+}
+
+/* Submenú desplegable */
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    background-color: var(--color-darker);
+    list-style: none;
+    transition: max-height 0.3s;
+}
+
+.menu__item--open .submenu {
+    max-height: 200px;
+}
+
+.submenu .menu__link {
+    padding-left: 36px;
+    font-size: 0.95rem;
+}
+
+/* Barra superior */
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--color-border);
+    background-color: white;
+}
+
+.topbar__btn {
+    padding: 6px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background-color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.topbar__btn:hover {
+    background-color: #dcfce7;
+}
+
+.topbar__title {
+    font-size: 1.3rem;
+    color: var(--color-primary);
+}
+
+/* Contenido */
+.main {
+    flex: 1;
+    padding: 30px 25px;
+}
+
+.panel {
+    max-width: 900px;
+    margin-bottom: 25px;
+    padding: 25px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.panel__title {
+    margin-bottom: 12px;
+    color: var(--color-primary);
+}
+
+.panel__text {
+    line-height: 1.6;
+}
+
+/* Accesos rápidos */
+.accesos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 900px;
+}
+
+.acceso {
+    flex: 1;
+    min-width: 220px;
+    padding: 25px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+.acceso:hover {
+    transform: translateY(-6px);
+}
+
+.acceso__title {
+    margin-bottom: 8px;
+    color: var(--color-primary);
+}
+
+/* Pie de página */
+.footer {
+    padding: 15px;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+/* Fondo oscuro del menú en celular */
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Adaptación a celular */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 20;
+        margin-left: 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+    }
+
+    .menu-cerrado .sidebar {
+        margin-left: 0;
+    }
+
+    .menu-abierto .sidebar {
+        transform: translateX(0);
+    }
+
+    .menu-abierto .overlay {
+        display: block;
+    }
+}
