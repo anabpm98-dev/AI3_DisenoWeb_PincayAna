@@ -47,3 +47,11 @@ consultaCelular.addEventListener('change', () => {
 
 // Estado inicial
 actualizarBoton();
+
+// Cerrar el menú con Escape
+document.addEventListener('keydown', evento => {
+    if (evento.key === 'Escape' && cuerpo.classList.contains('menu-abierto')) {
+        cuerpo.classList.remove('menu-abierto');
+        actualizarBoton();
+    }
+});

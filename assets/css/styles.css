@@ -439,3 +439,77 @@ textarea.campo__input {
     background-color: #bbf7d0;
     color: #14532d;
 }
+
+/* Accesibilidad */
+.sidebar .menu__link:focus-visible,
+.sidebar .menu__group-toggle:focus-visible {
+    outline: 3px solid #bbf7d0;
+    outline-offset: -3px;
+}
+
+.topbar__btn:focus-visible,
+.btn:focus-visible,
+.enlace:focus-visible,
+.acceso:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Detalles */
+::selection {
+    background-color: #bbf7d0;
+    color: var(--color-darker);
+}
+
+/* Sin animaciones si se prefiere */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
+
+/* Tablet y celular */
+@media (max-width: 768px) {
+    .sidebar {
+        width: min(var(--ancho-menu), 85vw);
+    }
+
+    .topbar {
+        padding: 12px 16px;
+    }
+
+    .topbar__title {
+        font-size: 1.1rem;
+    }
+
+    .main {
+        padding: 20px 14px;
+    }
+
+    .panel {
+        padding: 18px;
+    }
+}
+
+/* Celular pequeño */
+@media (max-width: 480px) {
+    .panel__title {
+        font-size: 1.15rem;
+    }
+
+    .campo {
+        flex-basis: 100%;
+    }
+
+    .formulario .btn {
+        width: 100%;
+    }
+
+    .tabla {
+        font-size: 0.85rem;
+    }
+
+    .footer {
+        font-size: 0.78rem;
+    }
+}
