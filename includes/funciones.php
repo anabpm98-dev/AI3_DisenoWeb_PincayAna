@@ -24,3 +24,11 @@ function formatearFecha(string $fecha): string
     $marca = strtotime($fecha);
     return $marca === false ? '' : date('d/m/Y H:i', $marca);
 }
+
+// Mensaje y redirección
+function redirigirConMensaje(string $destino, string $clave, string $mensaje): void
+{
+    $_SESSION[$clave] = $mensaje;
+    header('Location: ' . $destino);
+    exit;
+}

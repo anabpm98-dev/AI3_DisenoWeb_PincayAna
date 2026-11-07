@@ -13,7 +13,9 @@ CREATE TABLE IF NOT EXISTS solicitudes (
     area VARCHAR(80) NOT NULL,
     descripcion TEXT NOT NULL,
     prioridad ENUM('Alta', 'Media', 'Baja') NOT NULL DEFAULT 'Media',
-    estado ENUM('Pendiente', 'En proceso', 'Resuelta') NOT NULL DEFAULT 'Pendiente',
+    estado ENUM('Pendiente', 'En proceso', 'Finalizada', 'Rechazada') NOT NULL DEFAULT 'Pendiente',
     fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    comentario_resolucion VARCHAR(500) NULL,
+    fecha_resolucion TIMESTAMP NULL DEFAULT NULL,
     PRIMARY KEY (id_solicitud)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

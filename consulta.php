@@ -1,4 +1,6 @@
 <?php
+// Sesión para mensajes
+session_start();
 require_once __DIR__ . '/config/conexion.php';
 require_once __DIR__ . '/includes/funciones.php';
 
@@ -10,12 +12,17 @@ $paginaActiva = 'consulta';
 $solicitudes = [];
 $errorConsulta = '';
 
+// Mensajes de otras páginas
+$mensaje = $_SESSION['mensaje'] ?? null;
+$mensajeError = $_SESSION['mensaje_error'] ?? null;
+unset($_SESSION['mensaje'], $_SESSION['mensaje_error']);
+
 try {
     $pdo = obtenerConexion();
 
     // Consulta de registros
     $sql = 'SELECT id_solicitud, nombre_solicitante, correo, area, descripcion,
-                   prioridad, estado, fecha_creacion
+                   prioridad, estado, fecha_creacion, comentario_resolucion, fecha_resolucion
             FROM solicitudes
             ORDER BY fecha_creacion DESC, id_solicitud DESC';
     $stmt = $pdo->prepare($sql);
@@ -44,6 +51,14 @@ try {
                 <section class="panel panel--ancho">
                     <h2 class="panel__title">Solicitudes registradas</h2>
 
+                    <?php if ($mensaje !== null): ?>
+                        <div class="alerta alerta--exito" role="status"><?php echo escapar($mensaje); ?></div>
+                    <?php endif; ?>
+
+                    <?php if ($mensajeError !== null): ?>
+                        <div class="alerta alerta--error" role="alert"><?php echo escapar($mensajeError); ?></div>
+                    <?php endif; ?>
+
                     <?php if ($errorConsulta !== ''): ?>
                         <div class="alerta alerta--error" role="alert"><?php echo escapar($errorConsulta); ?></div>
                     <?php elseif (empty($solicitudes)): ?>
@@ -64,6 +79,8 @@ try {
                                         <th>Prioridad</th>
                                         <th>Estado</th>
                                         <th>Fecha</th>
+                                        <th>Resolución</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -85,6 +102,21 @@ try {
                                                 </span>
                                             </td>
                                             <td><?php echo escapar(formatearFecha($fila['fecha_creacion'])); ?></td>
+                                            <td class="tabla__descripcion">
+                                                <?php if ($fila['comentario_resolucion'] !== null): ?>
+                                                    <span class="resolucion__fecha"><?php echo escapar(formatearFecha((string) ($fila['fecha_resolucion'] ?? ''))); ?></span>
+                                                    <?php echo escapar($fila['comentario_resolucion']); ?>
+                                                <?php else: ?>
+                                                    &mdash;
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <?php if (in_array($fila['estado'], ['Pendiente', 'En proceso'], true)): ?>
+                                                    <a class="btn btn--pequeno" href="resolver.php?id=<?php echo (int) $fila['id_solicitud']; ?>">Resolver</a>
+                                                <?php else: ?>
+                                                    &mdash;
+                                                <?php endif; ?>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
