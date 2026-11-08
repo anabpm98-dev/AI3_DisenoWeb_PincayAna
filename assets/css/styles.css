@@ -641,3 +641,25 @@ a.btn {
         padding: 10px 8px;
     }
 }
+
+/* Filtros de consulta */
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 14px;
+    margin: 15px 0;
+    padding: 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: var(--color-light);
+}
+
+.filtros .campo {
+    flex: 1 1 150px;
+}
+
+.filtros__acciones {
+    display: flex;
+    gap: 10px;
+}

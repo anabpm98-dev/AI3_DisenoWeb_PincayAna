@@ -32,3 +32,17 @@ function redirigirConMensaje(string $destino, string $clave, string $mensaje): v
     header('Location: ' . $destino);
     exit;
 }
+
+// Leer un valor de GET limpio
+function valorGet(string $clave): string
+{
+    $valor = $_GET[$clave] ?? '';
+    return is_string($valor) ? trim($valor) : '';
+}
+
+// Validar fecha AAAA-MM-DD
+function fechaValida(string $fecha): bool
+{
+    $objeto = DateTime::createFromFormat('Y-m-d', $fecha);
+    return $objeto !== false && $objeto->format('Y-m-d') === $fecha;
+}
